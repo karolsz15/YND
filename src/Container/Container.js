@@ -4,14 +4,14 @@ import './Dropdown.css';
 import { connect } from 'react-redux';
 
 class Container extends Component {
+
     render () {
-        return (
-            <div className={classes.Container}>
-                <input type="text" className={classes.SearchInput} placeholder="Enter username"></input>
-                <button className={classes.SearchButton}>Search</button>
+
+        let listOfUsers = (
+            <React.Fragment>
                 <div className={classes.InfoMessage}>
-                    Showing users for "Exampleuser"...
-                </div>
+                    Showing users for "{this.props.searchQuery}"...
+            </div>
 
                 <input className={classes.DropdownContainer} id="toggle" type="checkbox"></input><label for="toggle">Exampleuser 1 <i class="fa fa-angle-down" style={{fontSize:'1.5em'}}></i></label>
                 <div id="wrap">
@@ -59,6 +59,23 @@ class Container extends Component {
                         </div>
                     </div>
                 </div>
+            </React.Fragment>
+        );
+
+        return (
+            <div className={classes.Container}>
+                <input
+                    onChange={e => this.props.searchInputChangeHandler(e.target.value)}
+                    type="text" 
+                    className={classes.SearchInput} 
+                    placeholder="Enter username"></input>
+                <button
+                    onClick={this.props.searchButtonClickHandler} 
+                    className={classes.SearchButton}>
+                    Search</button>
+
+                {this.props.showListOfUsers ? listOfUsers : null}
+                
             </div>    
         )
     };
@@ -66,13 +83,15 @@ class Container extends Component {
 
 const mapStateToProps = state => {
     return {
-        test: state.test
+        searchQuery: state.searchQuery,
+        showListOfUsers: state.showListOfUsers
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        updateContactName: (name) => dispatch({type: 'UPDATE_CONTACT_NAME', name: name})
+        searchInputChangeHandler: (input) => dispatch({type: 'INPUT_CHANGED', input: input}),
+        searchButtonClickHandler: () => dispatch({type: 'SEARCH_BUTTON_CLICKED'})
     };
 };
 
