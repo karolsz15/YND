@@ -8,6 +8,7 @@
 
 body {
     background-color: var(--dark-grey);
+    color: var(--black);
 }
 
 .Container {
@@ -24,10 +25,6 @@ body {
     padding: .25em;
 }
 
-.Placeholder {
-    color: var(--dark-grey);
-}
-
 .SearchButton {
     background-color: var(--blue);
     color: var(--dark-grey);
@@ -42,8 +39,13 @@ body {
 
 .SingleRepo {
     background-color: var(--dark-grey);
+    color: black;
     display: flex;
     justify-content: space-around;
     margin: .5em 0;
     padding: .5em
+}
+
+.RepoTitle {
+    font-weight: 700;
 }

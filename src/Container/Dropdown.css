@@ -27,8 +27,8 @@
 #slider {
     overflow-y: hidden;
     max-height: 0; /*hidden by default */
-    -webkit-transition: all .5s cubic-bezier(0, 1, 0.5, 1);
-    transition: all .5s cubic-bezier(0, 1, 0.5, 1);
+    -webkit-transition: all 1s cubic-bezier(0, 1, 0.5, 1);
+    transition: all 1s cubic-bezier(0, 1, 0.5, 1);
     background: var(--white);
     /* height: inherit;  */
     width: 100%;    
@@ -37,6 +37,7 @@
     display: none;
 }
 #toggle + label {
+    color: black;
     text-align: center;
     border-radius: 2px;
     background: var(--light-grey);
