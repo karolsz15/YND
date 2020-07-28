@@ -1,0 +1,49 @@
+:root {
+    --white: #FEFEFE;
+    --light-grey: #F2F2F2;
+    --dark-grey: #E5E5E5;
+    --blue: #2C9CDB;
+    --black: #585858;
+}
+
+body {
+    background-color: var(--dark-grey);
+}
+
+.Container {
+    display: flex;
+    flex-direction: column;
+    max-width: 600px;
+    margin: 1em auto;
+    padding: 1em;
+    background-color: var(--white);
+}
+
+.SearchInput {
+    background-color: var(--light-grey);
+    padding: .25em;
+}
+
+.Placeholder {
+    color: var(--dark-grey);
+}
+
+.SearchButton {
+    background-color: var(--blue);
+    color: var(--dark-grey);
+    width: 100%;
+    padding: 1em auto;
+    margin: 1em auto;
+}
+
+.DropdownContainer {
+    background-color: var(--light-grey);
+}
+
+.SingleRepo {
+    background-color: var(--dark-grey);
+    display: flex;
+    justify-content: space-around;
+    margin: .5em 0;
+    padding: .5em
+}
