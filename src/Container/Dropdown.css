@@ -26,7 +26,7 @@
 }
 #slider {
     overflow-y: hidden;
-    /* max-height: 200px; */
+    max-height: 0; /*hidden by default */
     -webkit-transition: all .5s cubic-bezier(0, 1, 0.5, 1);
     transition: all .5s cubic-bezier(0, 1, 0.5, 1);
     background: var(--white);
@@ -37,16 +37,19 @@
     display: none;
 }
 #toggle + label {
-    padding: 1px 6px;
     text-align: center;
     border-radius: 2px;
     background: var(--light-grey);
     border: 1px outset buttonface;
-    margin-bottom: 1em;
     display: inline-block;
     cursor: pointer;
+    display: flex;
+    justify-content: space-around;
+    padding: 1em 0;
+    margin: 1em auto;
+    width: 100%;
 }
 /* most important part is here: */
 #toggle:checked ~ #wrap > #slider {
-    max-height: 0;
+    max-height: 100%;
 }

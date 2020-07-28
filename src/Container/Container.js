@@ -10,7 +10,7 @@ class Container extends Component {
                 <input type="text" className={classes.SearchInput} placeholder="Enter username"></input>
                 <button className={classes.SearchButton}>Search</button>
 
-                <input className={classes.DropdownContainer} id="toggle" type="checkbox" /><label for="toggle">Exampleuser 1</label>
+                <input className={classes.DropdownContainer} id="toggle" type="checkbox"></input><label for="toggle">Exampleuser 1 <i class="fa fa-angle-down" style={{fontSize:'1.5em'}}></i></label>
                 <div id="wrap">
                     <div id="slider">
                         <div className={classes.SingleRepo}>
