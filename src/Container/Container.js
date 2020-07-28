@@ -2,66 +2,20 @@ import React, { Component } from 'react';
 import classes from './Container.module.css';
 import './Dropdown.css';
 import { connect } from 'react-redux';
+import SingleUser from '../Components/SingleUser';
+import _ from 'lodash';
 
 class Container extends Component {
 
     render () {
+        let listOfUsers = this.props.error ? <p>Users can't be loaded</p> : <p>Loading users...</p>;
 
-        let listOfUsers = (
-            <React.Fragment>
-                <div className={classes.InfoMessage}>
-                    Showing users for "{this.props.searchQuery}"...
-            </div>
-
-                <input className={classes.DropdownContainer} id="toggle" type="checkbox"></input><label for="toggle">Exampleuser 1 <i class="fa fa-angle-down" style={{fontSize:'1.5em'}}></i></label>
-                <div id="wrap">
-                    <div id="slider">
-                        <div className={classes.SingleRepo}>
-                            <div className={classes.TitleAndDescription}>
-                                <div className={classes.RepoTitle}>
-                                    {this.props.test}
-                                </div>
-                                <div className={classes.RepoDescription}>
-                                    Repository description
-                                </div>
-                            </div>
-                            <div>
-                                12 <i class="fa fa-star"></i>
-                            </div>  
-                        </div>
-
-                        <div className={classes.SingleRepo}>
-                            <div className={classes.TitleAndDescription}>
-                                <div className={classes.RepoTitle}>
-                                    Repository title
-                                </div>
-                                <div className={classes.RepoDescription}>
-                                    Repository description
-                                </div>
-                            </div>
-                            <div>
-                                48 <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-
-                        <div className={classes.SingleRepo}>
-                            <div className={classes.TitleAndDescription}>
-                                    <div className={classes.RepoTitle}>
-                                        Repository title
-                                    </div>
-                                    <div className={classes.RepoDescription}>
-                                        Repository description
-                                    </div>
-                                </div>
-                            <div>
-                                32 <i class="fa fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </React.Fragment>
-        );
-
+        if (this.props.usernamesArray) {
+            listOfUsers = (
+                <SingleUser username={this.props.usernamesArray[0]} />
+            );
+        };
+        
         return (
             <div className={classes.Container}>
                 <input
@@ -73,8 +27,13 @@ class Container extends Component {
                     onClick={this.props.searchButtonClickHandler} 
                     className={classes.SearchButton}>
                     Search</button>
+                <div className={classes.InfoMessage}>
+                    Showing users for "{this.props.searchQuery}"...
+                </div>
 
-                {this.props.showListOfUsers ? listOfUsers : null}
+                {listOfUsers}
+                
+                
                 
             </div>    
         )
@@ -84,7 +43,9 @@ class Container extends Component {
 const mapStateToProps = state => {
     return {
         searchQuery: state.searchQuery,
-        showListOfUsers: state.showListOfUsers
+        showListOfUsers: state.showListOfUsers,
+        usernamesArray: state.usernamesArray,
+        error: state.error
     };
 };
 
