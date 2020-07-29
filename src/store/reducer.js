@@ -30,7 +30,8 @@ const reducer = (state = initialState, action) =>  {
                 ...state,
                 error: true
             }
-        case 'SEARCH_BUTTON_CLICKED':
+        case 'FORM_SUBMITTED':
+            action.event.preventDefault();
             return {
                 ...state,
                 showListOfUsers: true

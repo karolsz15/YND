@@ -52,16 +52,19 @@ const Container = React.memo(props =>  {
         
         return (
             <div className={classes.Container}>
-                <input
-                    ref={inputRef}
-                    onChange={e => props.searchInputChangeHandler(e.target.value)}
-                    type="text" 
-                    className={classes.SearchInput} 
-                    placeholder="Enter username"></input>
-                <button
-                    onClick={props.searchButtonClickHandler} 
-                    className={classes.SearchButton}>
-                    Search</button>
+                <form onSubmit={props.searchButtonClickHandler}>
+                    <input
+                        ref={inputRef}
+                        onChange={e => props.searchInputChangeHandler(e.target.value)}
+                        type="text" 
+                        className={classes.SearchInput} 
+                        placeholder="Enter username"></input>
+                    <button
+                        type="submit"
+                        // onClick={props.searchButtonClickHandler} 
+                        className={classes.SearchButton}>
+                        Search</button>
+                </form>
                 <div className={classes.InfoMessage}>
                     {props.showListOfUsers ? message : null}
                 </div>
@@ -82,7 +85,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         searchInputChangeHandler: (input) => dispatch({type: 'INPUT_CHANGED', input: input}),
-        searchButtonClickHandler: () => dispatch({type: 'SEARCH_BUTTON_CLICKED'}),
+        formSubmitHandler: (event) => dispatch({type: 'FORM_SUBMITTED', event: event}),
         setUsernamesArray: (array) => dispatch({type: 'SET_USERNAMES', array: array}),
         setError: () => dispatch({type: 'SET_ERROR'}),
         toggleUsersRepos: () => dispatch({type: 'TOGGLE_USERS_REPOS'})

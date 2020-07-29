@@ -16,6 +16,10 @@ a {
     text-decoration: inherit;
 }
 
+/* form {
+    width: 100%;
+} */
+
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #707070;
     opacity: 1; /* Firefox */
@@ -41,6 +45,7 @@ a {
 .SearchInput {
     background-color: var(--light-grey);
     padding: .25em;
+    width: 100%;
 }
 
 .SearchButton {
