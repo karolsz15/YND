@@ -2,7 +2,7 @@ import React from 'react';
 import classes from '../Container/Container.module.css';
 
 const ReposLink = props => (
-    <a className={classes.Wrap} href={`https://github.com/${props.username}`} target="_blank">
+    <a className={classes.Wrap} href={`https://github.com/${props.username}`} target="_blank" rel="noopener noreferrer">
         <div className={classes.SingleRepo}>
             <div className={classes.TitleAndDescription}>
                 <div className={classes.RepoTitle}>
@@ -19,11 +19,5 @@ const ReposLink = props => (
     </a>
     
 );
-
-const mapStateToProps = state => {
-    return {
-        numberOfRepositories: state.numberOfRepositories,
-    };
-};
 
 export default ReposLink;

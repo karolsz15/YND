@@ -6,9 +6,9 @@ const initialState = {
     usernamesArray: null,
     error: false,
     activeUser: null,
-    activeReposDetails: null, //titles, descriptions and stars - JSON object response
+    activeReposDetails: null, //titles, descriptions and stars - JSON object response 
     showListOfRepos: false,
-    numberOfRepositories: 0
+    currentlyOpened: []
 };
 
 const reducer = (state = initialState, action) =>  {
@@ -46,25 +46,12 @@ const reducer = (state = initialState, action) =>  {
                 ...state,
                 activeReposDetails: action.data
             }
-        // case 'SHOW_USERS_REPOS':
-        //     return {
-        //         ...state,
-        //         showListOfRepos: true
-        //     }
         case 'TOGGLE_USERS_REPOS':
             let trueOrFalse = !state.showListOfRepos;
             return {
                 ...state,
                 showListOfRepos: trueOrFalse
             }
-            
-
-    // axios
-    // .get(`https://api.github.com/users/${answers.name}/starred`)
-    // .then(function(res) {
-    //   let stars = res.data[0].stargazers_count;
-
-    //"https://api.github.com/user/repos{?type,page,per_page,sort}"
         }
     return state;
 };

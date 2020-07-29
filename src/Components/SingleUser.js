@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import classes from '../Container/Container.module.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
@@ -8,6 +8,7 @@ import ReposLink from './ReposLink';
 
 const SingleUser = props => {
 
+    const [open, setOpen] = useState(false);
     const { setActiveUser, setActiveReposDetails, setError } = props;
     let singleRepoArray, singleRepoTitle, singleRepoDescription, singleRepoStars;
 
@@ -23,7 +24,8 @@ const SingleUser = props => {
             setActiveUser(props.username);
             setActiveReposDetails(response.data); //response.data is an array of objects
             console.log(response.data);
-            props.toggleUsersRepos();
+            props.clicked();
+            setOpen(!open);
         })
         .catch( error => {
             // handle error
@@ -35,7 +37,7 @@ const SingleUser = props => {
     let listOfRepos = [];
 
     if (props.activeReposDetails) {
-        for (let i = 0; i <5; i++) {
+        for (let i = 0; i <4; i++) {
             singleRepoArray = _.values(props.activeReposDetails[i]); //making array out of object with lodash
             singleRepoTitle = singleRepoArray[2];
             singleRepoDescription = singleRepoArray[7];
@@ -44,22 +46,19 @@ const SingleUser = props => {
                 <SingleRepo 
                     singleRepoTitle={singleRepoTitle} 
                     singleRepoDescription={singleRepoDescription} 
-                    singleRepoStars={singleRepoStars} />
+                    singleRepoStars={singleRepoStars} 
+                    key={singleRepoTitle} />
             );
         };
     };
 
     return (
         <React.Fragment>
-
                     <div onClick={() => getUsersRepos()} className={classes.DropdownContainer}>
                         {props.username}<i class="fa fa-angle-down" style={{fontSize:'1.5em', margin:'1em'}}></i>
                     </div>
-
-                    {props.showListOfRepos ? listOfRepos : null}
-                    {props.showListOfRepos ? <ReposLink username={props.username}/> : null}
-                    
- 
+                    {props.showListOfRepos && open ? listOfRepos : null}
+                    {props.showListOfRepos && open ? <ReposLink username={props.username}/> : null}
         </React.Fragment>
     );
 };
@@ -78,7 +77,6 @@ const mapDispatchToProps = dispatch => {
         setActiveReposDetails: (data) => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}),
         setError: () => dispatch({type: 'SET_ERROR'}),
         showUsersRepos: () => dispatch({type: 'SHOW_USERS_REPOS'}),
-        toggleUsersRepos: () => dispatch({type: 'TOGGLE_USERS_REPOS'})
     };
 };
 

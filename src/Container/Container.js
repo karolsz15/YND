@@ -23,8 +23,6 @@ const Container = React.memo(props =>  {
                     .then( response => {
                         // handle success
                         newDataArray = response.data.items.map(el => el.login);
-                        // console.log(newDataArray);
-                        // console.log(response.data.items);
                         setUsernamesArray(newDataArray);
                     })
                     .catch( error => {
@@ -45,7 +43,10 @@ const Container = React.memo(props =>  {
 
         if (props.usernamesArray) {
             listOfUsers = [0,1,2,3,4].map(el => (
-                <SingleUser username={props.usernamesArray[el]} />
+                <SingleUser 
+                    username={props.usernamesArray[el]} 
+                    clicked={() => props.toggleUsersRepos()}
+                    key={props.usernamesArray[el]} />
             ))
         };
         
@@ -83,7 +84,8 @@ const mapDispatchToProps = dispatch => {
         searchInputChangeHandler: (input) => dispatch({type: 'INPUT_CHANGED', input: input}),
         searchButtonClickHandler: () => dispatch({type: 'SEARCH_BUTTON_CLICKED'}),
         setUsernamesArray: (array) => dispatch({type: 'SET_USERNAMES', array: array}),
-        setError: () => dispatch({type: 'SET_ERROR'})
+        setError: () => dispatch({type: 'SET_ERROR'}),
+        toggleUsersRepos: () => dispatch({type: 'TOGGLE_USERS_REPOS'})
     };
 };
 
