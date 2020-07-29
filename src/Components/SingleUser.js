@@ -10,7 +10,7 @@ const SingleUser = props => {
 
     const [open, setOpen] = useState(false);
     const { setActiveUser, setActiveReposDetails, setError } = props;
-    let singleRepoArray, singleRepoTitle, singleRepoDescription, singleRepoStars;
+    let singleRepoArray, singleRepoTitle, singleRepoDescription, singleRepoStars, singleRepoLink;
 
     singleRepoArray = null;
     singleRepoTitle = 'spinner...';
@@ -39,6 +39,7 @@ const SingleUser = props => {
     if (props.activeReposDetails) {
         for (let i = 0; i <4; i++) {
             singleRepoArray = _.values(props.activeReposDetails[i]); //making array out of object with lodash
+            singleRepoLink = singleRepoArray[6];
             singleRepoTitle = singleRepoArray[2];
             singleRepoDescription = singleRepoArray[7];
             singleRepoStars = singleRepoArray[71];
@@ -47,6 +48,7 @@ const SingleUser = props => {
                     singleRepoTitle={singleRepoTitle} 
                     singleRepoDescription={singleRepoDescription} 
                     singleRepoStars={singleRepoStars} 
+                    singleRepoLink={singleRepoLink}
                     key={singleRepoTitle} />
             );
         };
