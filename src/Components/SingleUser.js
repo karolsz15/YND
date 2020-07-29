@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import _ from 'lodash';
 import SingleRepo from './SingleRepo';
+import ReposLink from './ReposLink';
 
 const SingleUser = props => {
 
@@ -56,6 +57,7 @@ const SingleUser = props => {
                     </div>
 
                     {props.showListOfRepos ? listOfRepos : null}
+                    {props.showListOfRepos ? <ReposLink username={props.username}/> : null}
                     
  
         </React.Fragment>

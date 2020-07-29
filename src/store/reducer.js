@@ -7,7 +7,8 @@ const initialState = {
     error: false,
     activeUser: null,
     activeReposDetails: null, //titles, descriptions and stars - JSON object response
-    showListOfRepos: false
+    showListOfRepos: false,
+    numberOfRepositories: 0
 };
 
 const reducer = (state = initialState, action) =>  {
@@ -37,7 +38,8 @@ const reducer = (state = initialState, action) =>  {
         case 'SET_ACTIVE_USER':
             return {
                 ...state,
-                activeUser: action.user
+                activeUser: action.user,
+                numberOfRepositories: action.number
             }
         case 'SET_ACTIVE_REPOS_DETAILS':
             return {
