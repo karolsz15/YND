@@ -49,7 +49,7 @@ body {
     background-color: var(--dark-grey);
     color: black;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: .5em 0;
     padding: .5em;
 }
