@@ -3,8 +3,7 @@ import classes from '../Container/Container.module.css';
 
 const SingleRepo = props => {
     return (
-        <a className={classes.Wrap} href={props.singleRepoLink} target="_blank" rel="noopener noreferrer">
-            <div className={classes.Wrap}>
+        <a className={classes.Wrap} href={props.singleRepoLink} target="_blank" rel="noopener noreferrer">   
                 <div className={classes.SingleRepo}>
                     <div className={classes.TitleAndDescription}>
                         <div className={classes.RepoTitle}>
@@ -18,7 +17,6 @@ const SingleRepo = props => {
                         {props.singleRepoStars} <i class="fa fa-star"></i>
                     </div>  
                 </div>
-            </div> 
         </a>
     );
 };

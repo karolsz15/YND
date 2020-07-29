@@ -17,7 +17,6 @@ const ReposLink = props => (
             </div>  
         </div>
     </a>
-    
 );
 
 export default ReposLink;

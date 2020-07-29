@@ -52,7 +52,7 @@ const Container = React.memo(props =>  {
         
         return (
             <div className={classes.Container}>
-                <form onSubmit={props.searchButtonClickHandler}>
+                <form onSubmit={props.formSubmitHandler}>
                     <input
                         ref={inputRef}
                         onChange={e => props.searchInputChangeHandler(e.target.value)}
