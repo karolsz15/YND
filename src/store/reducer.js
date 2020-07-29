@@ -6,7 +6,8 @@ const initialState = {
     usernamesArray: null,
     error: false,
     activeUser: null,
-    activeReposDetails: null //titles, descriptions and stars - JSON object response
+    activeReposDetails: null, //titles, descriptions and stars - JSON object response
+    showListOfRepos: false
 };
 
 const reducer = (state = initialState, action) =>  {
@@ -15,7 +16,8 @@ const reducer = (state = initialState, action) =>  {
             return {
                 ...state,
                 searchQuery: action.input,
-                showListOfUsers: false
+                showListOfUsers: false,
+                showListOfRepos: false
             }
         case 'SET_USERNAMES':
             return {
@@ -41,6 +43,11 @@ const reducer = (state = initialState, action) =>  {
             return {
                 ...state,
                 activeReposDetails: action.data
+            }
+        case 'SHOW_USERS_REPOS':
+            return {
+                ...state,
+                showListOfRepos: true
             }
 
     // axios

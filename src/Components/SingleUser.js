@@ -7,7 +7,7 @@ import SingleRepo from './SingleRepo';
 
 const SingleUser = props => {
 
-    const { setActiveUser, setActiveReposDetails, setError } = props;
+    const { setActiveUser, setActiveReposDetails, setError, showListOfRepos } = props;
     let singleRepoArray, singleRepoTitle, singleRepoDescription, singleRepoStars;
 
     singleRepoArray = null;
@@ -22,6 +22,7 @@ const SingleUser = props => {
             setActiveUser(props.username);
             setActiveReposDetails(response.data); //response.data is an array of objects
             console.log(response.data);
+            props.showUsersRepos();
         })
         .catch( error => {
             // handle error
@@ -52,22 +53,45 @@ const SingleUser = props => {
         singleRepoStars = singleRepoArray[71];
     }
 
+    // let listOfRepos = (
+    //     <SingleRepo 
+    //         singleRepoTitle={singleRepoTitle} 
+    //         singleRepoDescription={singleRepoDescription} 
+    //         singleRepoStars={singleRepoStars} />
+    // );
+
+    // useEffect(() => {
+    //     listOfRepos = showListOfRepos ? (
+    //         <SingleRepo 
+    //             singleRepoTitle={singleRepoTitle} 
+    //             singleRepoDescription={singleRepoDescription} 
+    //             singleRepoStars={singleRepoStars} />
+    //     ) : null;
+    // }, [showListOfRepos])
+
+
     return (
         <React.Fragment>
-            <input 
+            {/* <input 
                 className={classes.DropdownContainer} 
                 id="toggle" 
                 type="checkbox"></input>
             <label onClick={() => getUsersRepos()} for="toggle">{props.username}<i class="fa fa-angle-down" style={{fontSize:'1.5em'}}></i></label>
                 <div id="wrap">
-                    <div id="slider">
-                        <SingleRepo 
-                        singleRepoTitle={singleRepoTitle} 
-                        singleRepoDescription={singleRepoDescription} 
-                        singleRepoStars={singleRepoStars} />
-
+                    <div id="slider"> */}
+                    <div onClick={() => getUsersRepos()} className={classes.DropdownContainer}>
+                        {props.username}<i class="fa fa-angle-down" style={{fontSize:'1.5em', margin:'1em'}}></i>
                     </div>
-                </div> 
+                        <SingleRepo 
+                            singleRepoTitle={singleRepoTitle} 
+                            singleRepoDescription={singleRepoDescription} 
+                            singleRepoStars={singleRepoStars} />
+                    
+                    {/* {showListOfRepos ? ( */}
+                        
+                    {/* ) : null} */}
+                    {/* </div>
+                </div>  */}
         </React.Fragment>
     );
 };
@@ -83,7 +107,8 @@ const mapDispatchToProps = dispatch => {
     return {
         setActiveUser: (user) => dispatch({type: 'SET_ACTIVE_USER', user: user}),
         setActiveReposDetails: (data) => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}),
-        setError: () => dispatch({type: 'SET_ERROR'})
+        setError: () => dispatch({type: 'SET_ERROR'}),
+        showUsersRepos: () => dispatch({type: 'SHOW_USERS_REPOS'})
     };
 };
 

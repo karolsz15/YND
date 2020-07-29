@@ -35,6 +35,14 @@ body {
 
 .DropdownContainer {
     background-color: var(--light-grey);
+    margin: .25em;
+    padding: .25em;
+    text-align: center;
+}
+
+.Wrap {
+        width: 90%;
+        align-self: flex-end;
 }
 
 .SingleRepo {
@@ -43,7 +51,7 @@ body {
     display: flex;
     justify-content: space-around;
     margin: .5em 0;
-    padding: .5em
+    padding: .5em;
 }
 
 .RepoTitle {
