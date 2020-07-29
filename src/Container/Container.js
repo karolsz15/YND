@@ -1,44 +1,71 @@
-import React, { Component } from 'react';
+import React, { useEffect, useRef } from 'react';
 import classes from './Container.module.css';
 import './Dropdown.css';
 import { connect } from 'react-redux';
 import SingleUser from '../Components/SingleUser';
-import _ from 'lodash';
+import axios from 'axios';
 
-class Container extends Component {
+const Container = React.memo(props =>  {
 
-    render () {
-        let listOfUsers = this.props.error ? <p>Users can't be loaded</p> : <p>Loading users...</p>;
+    const inputRef = useRef();
+    const { searchQuery, setUsernamesArray, setError } = props;
 
-        if (this.props.usernamesArray) {
-            listOfUsers = (
-                <SingleUser username={this.props.usernamesArray[0]} />
-            );
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            let newDataArray;
+            if (inputRef.current && (searchQuery === inputRef.current.value)) {
+                const query =
+                    searchQuery.length === 0
+                    ? ''
+                    : searchQuery;
+                axios.get(`https://api.github.com/search/users?q=${query}`)
+                    .then( response => {
+                        // handle success
+                        newDataArray = response.data.items.map(el => el.login);
+                        console.log(newDataArray);
+                        setUsernamesArray(newDataArray);
+                    })
+                    .catch( error => {
+                        // handle error
+                        console.log(error);
+                        setError();
+                    });
+            }
+        }, 1000);
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [searchQuery, inputRef, setUsernamesArray, setError]);
+
+        let message = `Showing users for "${props.searchQuery}"...`
+        
+        let listOfUsers = props.error ? <p>Users can't be loaded</p> : <p>Loading users...</p>;
+
+        if (props.usernamesArray) {
+            listOfUsers = [0,1,2,3,4].map(el => (
+                <SingleUser username={props.usernamesArray[el]} />
+            ))
         };
         
         return (
             <div className={classes.Container}>
                 <input
-                    onChange={e => this.props.searchInputChangeHandler(e.target.value)}
+                    ref={inputRef}
+                    onChange={e => props.searchInputChangeHandler(e.target.value)}
                     type="text" 
                     className={classes.SearchInput} 
                     placeholder="Enter username"></input>
                 <button
-                    onClick={this.props.searchButtonClickHandler} 
+                    onClick={props.searchButtonClickHandler} 
                     className={classes.SearchButton}>
                     Search</button>
                 <div className={classes.InfoMessage}>
-                    Showing users for "{this.props.searchQuery}"...
+                    {props.showListOfUsers ? message : null}
                 </div>
-
-                {listOfUsers}
-                
-                
-                
+                {props.usernamesArray && props.showListOfUsers ? listOfUsers : null}
             </div>    
         )
-    };
-};
+});
 
 const mapStateToProps = state => {
     return {
@@ -52,7 +79,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         searchInputChangeHandler: (input) => dispatch({type: 'INPUT_CHANGED', input: input}),
-        searchButtonClickHandler: () => dispatch({type: 'SEARCH_BUTTON_CLICKED'})
+        searchButtonClickHandler: () => dispatch({type: 'SEARCH_BUTTON_CLICKED'}),
+        setUsernamesArray: (array) => dispatch({type: 'SET_USERNAMES', array: array}),
+        setError: () => dispatch({type: 'SET_ERROR'})
     };
 };
 

@@ -1,4 +1,4 @@
-import axios from 'axios';
+// import axios from 'axios';
 
 const initialState = {
     searchQuery: '',
@@ -12,24 +12,22 @@ const reducer = (state = initialState, action) =>  {
         case 'INPUT_CHANGED':
             return {
                 ...state,
-                searchQuery: action.input
+                searchQuery: action.input,
+                showListOfUsers: false
             }
-        case 'SEARCH_BUTTON_CLICKED':
-            let newDataArray;
-            axios.get(`https://api.github.com/search/users?q=${state.searchQuery}`)
-                .then( response => {
-                // handle success
-                console.log(response.data.items);
-                newDataArray = response.data.items.map(el => el.login);
-                console.log(newDataArray);
-                })
-                .catch( error => {
-                // handle error
-                console.log(error);
-                });
+        case 'SET_USERNAMES':
             return {
                 ...state,
-                usernamesArray: newDataArray,
+                usernamesArray: action.array
+            }
+        case 'SET_ERROR':
+            return {
+                ...state,
+                error: true
+            }
+        case 'SEARCH_BUTTON_CLICKED':
+            return {
+                ...state,
                 showListOfUsers: true
             }
 
