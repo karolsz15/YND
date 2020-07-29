@@ -1,29 +1,77 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import classes from '../Container/Container.module.css';
+import { connect } from 'react-redux';
+import axios from 'axios';
+import _ from 'lodash';
 
-const singleUser = props => (
-    <React.Fragment>
-        <input className={classes.DropdownContainer} id="toggle" type="checkbox"></input><label for="toggle">{props.username}<i class="fa fa-angle-down" style={{fontSize:'1.5em'}}></i></label>
-                <div id="wrap">
-                    <div id="slider">
-                        <div className={classes.SingleRepo}>
-                            <div className={classes.TitleAndDescription}>
-                                <div className={classes.RepoTitle}>
-                                    {/* {props.repoTitle} */}
-                                    REPO'S TITLE
+const SingleUser = props => {
+
+    const { setActiveUser, setActiveReposDetails, setError } = props;
+    let singleRepoArray, singleRepoTitle, singleRepoDescription;
+
+    singleRepoArray = null;
+    singleRepoTitle = 'spinner...';
+    singleRepoDescription = 'spinner...';
+
+    // GET USER'S REPOS
+    useEffect( () => {
+        axios.get(`https://api.github.com/users/${props.username}/repos`)
+        .then( response => {
+            // handle success
+            setActiveUser(props.username);
+            setActiveReposDetails(response.data); //response.data is an array of objects
+            console.log(response.data);
+        })
+        .catch( error => {
+            // handle error
+            console.log(error);
+            setError();
+        });
+    }, [ setActiveUser, setActiveReposDetails, setError]);
+
+    if (props.activeReposDetails) {
+        singleRepoArray = _.values(props.activeReposDetails[0]); //making array out of object with lodash
+        singleRepoTitle = singleRepoArray[2];
+        singleRepoDescription = singleRepoArray[7];
+    }
+
+    return (
+        <React.Fragment>
+            <input className={classes.DropdownContainer} id="toggle" type="checkbox"></input><label for="toggle">{props.username}<i class="fa fa-angle-down" style={{fontSize:'1.5em'}}></i></label>
+                    <div id="wrap">
+                        <div id="slider">
+                            <div className={classes.SingleRepo}>
+                                <div className={classes.TitleAndDescription}>
+                                    <div className={classes.RepoTitle}>
+                                        {singleRepoTitle} 
+                                    </div>
+                                    <div className={classes.RepoDescription}>
+                                        {singleRepoDescription}
+                                    </div>
                                 </div>
-                                <div className={classes.RepoDescription}>
-                                    {/* {props.repoDescription} */}
-                                    REPO'S DESCRIPTION
-                                </div>
+                                <div>
+                                    12 <i class="fa fa-star"></i>
+                                </div>  
                             </div>
-                            <div>
-                                12 <i class="fa fa-star"></i>
-                            </div>  
                         </div>
-                    </div>
-                </div> 
-    </React.Fragment>
-);
+                    </div> 
+        </React.Fragment>
+    );
+};
 
-export default singleUser;
+const mapStateToProps = state => {
+    return {
+        activeUser: state.activeUserName,
+        activeReposDetails: state.activeReposDetails //titles, descriptions and stars
+    };
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        setActiveUser: (user) => dispatch({type: 'SET_ACTIVE_USER', user: user}),
+        setActiveReposDetails: (data) => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}),
+        setError: () => dispatch({type: 'SET_ERROR'})
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SingleUser);

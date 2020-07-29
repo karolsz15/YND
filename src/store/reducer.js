@@ -4,7 +4,9 @@ const initialState = {
     searchQuery: '',
     showListOfUsers: false,
     usernamesArray: null,
-    error: false
+    error: false,
+    activeUser: null,
+    activeReposDetails: null //titles, descriptions and stars - JSON object response
 };
 
 const reducer = (state = initialState, action) =>  {
@@ -29,6 +31,16 @@ const reducer = (state = initialState, action) =>  {
             return {
                 ...state,
                 showListOfUsers: true
+            }
+        case 'SET_ACTIVE_USER':
+            return {
+                ...state,
+                activeUser: action.user
+            }
+        case 'SET_ACTIVE_REPOS_DETAILS':
+            return {
+                ...state,
+                activeReposDetails: action.data
             }
 
     // axios

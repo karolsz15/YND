@@ -10,6 +10,7 @@ const Container = React.memo(props =>  {
     const inputRef = useRef();
     const { searchQuery, setUsernamesArray, setError } = props;
 
+    // GET USERS
     useEffect(() => {
         const timer = setTimeout(() => {
             let newDataArray;
@@ -22,7 +23,8 @@ const Container = React.memo(props =>  {
                     .then( response => {
                         // handle success
                         newDataArray = response.data.items.map(el => el.login);
-                        console.log(newDataArray);
+                        // console.log(newDataArray);
+                        // console.log(response.data.items);
                         setUsernamesArray(newDataArray);
                     })
                     .catch( error => {
@@ -39,7 +41,7 @@ const Container = React.memo(props =>  {
 
         let message = `Showing users for "${props.searchQuery}"...`
         
-        let listOfUsers = props.error ? <p>Users can't be loaded</p> : <p>Loading users...</p>;
+        let listOfUsers = props.error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
 
         if (props.usernamesArray) {
             listOfUsers = [0,1,2,3,4].map(el => (
