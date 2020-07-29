@@ -44,11 +44,18 @@ const reducer = (state = initialState, action) =>  {
                 ...state,
                 activeReposDetails: action.data
             }
-        case 'SHOW_USERS_REPOS':
+        // case 'SHOW_USERS_REPOS':
+        //     return {
+        //         ...state,
+        //         showListOfRepos: true
+        //     }
+        case 'TOGGLE_USERS_REPOS':
+            let trueOrFalse = !state.showListOfRepos;
             return {
                 ...state,
-                showListOfRepos: true
+                showListOfRepos: trueOrFalse
             }
+            
 
     // axios
     // .get(`https://api.github.com/users/${answers.name}/starred`)

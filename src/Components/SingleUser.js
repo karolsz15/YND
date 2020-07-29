@@ -7,7 +7,7 @@ import SingleRepo from './SingleRepo';
 
 const SingleUser = props => {
 
-    const { setActiveUser, setActiveReposDetails, setError, showListOfRepos } = props;
+    const { setActiveUser, setActiveReposDetails, setError } = props;
     let singleRepoArray, singleRepoTitle, singleRepoDescription, singleRepoStars;
 
     singleRepoArray = null;
@@ -22,7 +22,7 @@ const SingleUser = props => {
             setActiveUser(props.username);
             setActiveReposDetails(response.data); //response.data is an array of objects
             console.log(response.data);
-            props.showUsersRepos();
+            props.toggleUsersRepos();
         })
         .catch( error => {
             // handle error
@@ -45,20 +45,27 @@ const SingleUser = props => {
     //         setError();
     //     });
     // }, [ setActiveUser, setActiveReposDetails, setError]);
+    let listOfRepos = null;
 
     if (props.activeReposDetails) {
         singleRepoArray = _.values(props.activeReposDetails[0]); //making array out of object with lodash
         singleRepoTitle = singleRepoArray[2];
         singleRepoDescription = singleRepoArray[7];
         singleRepoStars = singleRepoArray[71];
+        listOfRepos = (
+            <SingleRepo 
+                singleRepoTitle={singleRepoTitle} 
+                singleRepoDescription={singleRepoDescription} 
+                singleRepoStars={singleRepoStars} />
+        );
     }
 
-    // let listOfRepos = (
+    // listOfRepos = props.showListOfRepos ? (
     //     <SingleRepo 
     //         singleRepoTitle={singleRepoTitle} 
     //         singleRepoDescription={singleRepoDescription} 
     //         singleRepoStars={singleRepoStars} />
-    // );
+    // ) : null;
 
     // useEffect(() => {
     //     listOfRepos = showListOfRepos ? (
@@ -82,10 +89,7 @@ const SingleUser = props => {
                     <div onClick={() => getUsersRepos()} className={classes.DropdownContainer}>
                         {props.username}<i class="fa fa-angle-down" style={{fontSize:'1.5em', margin:'1em'}}></i>
                     </div>
-                        <SingleRepo 
-                            singleRepoTitle={singleRepoTitle} 
-                            singleRepoDescription={singleRepoDescription} 
-                            singleRepoStars={singleRepoStars} />
+                    {props.showListOfRepos ? listOfRepos : null}
                     
                     {/* {showListOfRepos ? ( */}
                         
@@ -99,7 +103,8 @@ const SingleUser = props => {
 const mapStateToProps = state => {
     return {
         activeUser: state.activeUserName,
-        activeReposDetails: state.activeReposDetails //titles, descriptions and stars
+        activeReposDetails: state.activeReposDetails, //titles, descriptions and stars
+        showListOfRepos: state.showListOfRepos
     };
 };
 
@@ -108,7 +113,8 @@ const mapDispatchToProps = dispatch => {
         setActiveUser: (user) => dispatch({type: 'SET_ACTIVE_USER', user: user}),
         setActiveReposDetails: (data) => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}),
         setError: () => dispatch({type: 'SET_ERROR'}),
-        showUsersRepos: () => dispatch({type: 'SHOW_USERS_REPOS'})
+        showUsersRepos: () => dispatch({type: 'SHOW_USERS_REPOS'}),
+        toggleUsersRepos: () => dispatch({type: 'TOGGLE_USERS_REPOS'})
     };
 };
 
