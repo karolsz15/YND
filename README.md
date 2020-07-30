@@ -17,16 +17,16 @@ Github repositories explorer created with React and Redux. The application uses 
 ## 3. SCREENSHOTS:
 
 #### 1. Homepage view
-<img src='screenshots/1.png' style='margin: 1em'></img><hr/>
+<img src='screenshots/1.png' style='margin: 1em' width=50%></img><hr/>
 
 #### 2. Search results for 'axios'
-<img src='screenshots/2.png' style='margin: 1em'></img><hr/>
+<img src='screenshots/2.png' style='margin: 1em' width=50%></img><hr/>
 
 #### 3. Axios' repositories with titles, descriptions and star counts
-<img src='screenshots/3.png' style='margin: 1em'></img><hr/>
+<img src='screenshots/3.png' style='margin: 1em' width=50%></img><hr/>
 
 #### 4. Search results when less than 5 results match the search input
-<img src='screenshots/4.png' style='margin: 1em'></img><hr/>
+<img src='screenshots/4.png' style='margin: 1em' width=50%></img><hr/>
 
 #### 5. Repositories view when number of repositories is less than 4
-<img src='screenshots/5.png' style='margin: 1em'></img><hr/>
+<img src='screenshots/5.png' style='margin: 1em' width=50%></img><hr/>
