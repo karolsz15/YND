@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import classes from '../Container/Container.module.css';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import _ from 'lodash';
+
 import SingleRepo from './SingleRepo';
 import ReposLink from './ReposLink';
+import classes from '../Container/Container.module.css';
 
 const SingleUser = props => {
 
@@ -14,17 +15,13 @@ const SingleUser = props => {
     const [activeReposList, setActiveReposList] = useState([]);
     
     let singleRepoArray, singleRepoTitle, singleRepoDescription, singleRepoStars, singleRepoLink;
-    singleRepoArray = null;
-    singleRepoTitle = 'spinner...';
-    singleRepoDescription = 'spinner...';
 
-    //get user's repos
+    //GET USER'S REPOS
     const getUsersRepos = () => {
         axios.get(`https://api.github.com/users/${props.username}/repos`)
         .then( response => {
             props.setActiveUser(props.username);
             props.setActiveReposDetails(response.data); //response.data is an array of objects
-            props.clicked();
             setReposListOpened(!reposListOpened);
             setActiveReposList(response.data);
         })

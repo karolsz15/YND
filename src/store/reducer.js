@@ -1,10 +1,10 @@
 const initialState = {
     searchQuery: '',
     showListOfUsers: false,
-    usernamesArray: null,
+    usernamesArray: null, // array response from Container component 
     error: false,
     activeUser: null,
-    activeReposDetails: null, //titles, descriptions and stars - JSON object response 
+    activeReposDetails: null, //JSON object response from SingleUser component - titles, descriptions and stars
     reposListOpen: false
 };
 
@@ -41,16 +41,6 @@ const reducer = (state = initialState, action) =>  {
             return {
                 ...state,
                 activeReposDetails: action.data
-            };
-        case 'SET_REPOS_LISTS_OPEN':
-            return {
-                ...state,
-                reposListOpen: true
-            };
-        case 'SET_REPOS_LISTS_CLOSED':
-            return {
-                ...state,
-                reposListOpen: false
             };
         };
     return state;

@@ -1,8 +1,8 @@
 import React from 'react';
-// import './App.css';
+
 import Container from './Container/Container';
 
-function App() {
+const App = () => {
   return (
     <Container />
   );

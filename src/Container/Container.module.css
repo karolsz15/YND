@@ -20,8 +20,7 @@ a {
 }
 
 
-/* NORMALIZE CSS */
-/**
+/* NORMALIZE CSS
  * 1. Change the font styles in all browsers.
  * 2. Remove the margin in Firefox and Safari.
  */
@@ -109,6 +108,10 @@ a {
     border-radius: .25em;
 }
 
+.SearchButton:hover {
+  cursor: pointer;
+}
+
 .InfoMessage {
     margin-bottom: .5em;
 }
@@ -121,6 +124,10 @@ a {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.DropdownContainer:hover {
+  cursor: pointer;
 }
 
 .Wrap {

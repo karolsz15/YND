@@ -1,8 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
-import classes from './Container.module.css';
+import React, { useEffect, useRef } from 'react';
 import { connect } from 'react-redux';
-import SingleUser from '../Components/SingleUser';
 import axios from 'axios';
+
+import classes from './Container.module.css';
+import SingleUser from '../Components/SingleUser';
 
 const Container = React.memo(props =>  {
 
@@ -12,7 +13,6 @@ const Container = React.memo(props =>  {
     // GET USERS
     //setTimeout is used in order to limit HTTP requests
     //request is sent after 0.5s without input change instead of request on every keystroke
-
     useEffect(() => {
         const timer = setTimeout(() => {
             if (inputRef.current && (searchQuery === inputRef.current.value)) {
@@ -50,7 +50,6 @@ const Container = React.memo(props =>  {
             listOfUsers = [0,1,2,3,4].map(el => (
                 <SingleUser 
                     username={props.usernamesArray[el]} 
-                    clicked={() => props.toggleUsersRepos()}
                     key={props.usernamesArray[el]} />
             ));
         //if less than 5 usernames match the user input - render list of all results
@@ -58,7 +57,6 @@ const Container = React.memo(props =>  {
             listOfUsers = [0,1,2,3,4].slice(0, props.usernamesArray.length).map(el => (
                 <SingleUser 
                     username={props.usernamesArray[el]} 
-                    clicked={() => props.toggleUsersRepos()}
                     key={props.usernamesArray[el]} />
             ));
         };
@@ -72,11 +70,13 @@ const Container = React.memo(props =>  {
                     onChange={e => props.searchInputChangeHandler(e.target.value)}
                     type="text" 
                     className={classes.SearchInput} 
-                    placeholder="Enter username"></input>
+                    placeholder="Enter username">
+                </input>
                 <button
                     type="submit"
-                    className={classes.SearchButton} >
-                    Search</button>
+                    className={classes.SearchButton}>
+                    Search
+                </button>
             </form>
             <div className={classes.InfoMessage}>
                 {props.showListOfUsers ? message : null}
@@ -100,8 +100,7 @@ const mapDispatchToProps = dispatch => {
         searchInputChangeHandler: (input) => dispatch({type: 'INPUT_CHANGED', input: input}),
         formSubmitHandler: (event) => dispatch({type: 'FORM_SUBMITTED', event: event}),
         setUsernamesArray: (array) => dispatch({type: 'SET_USERNAMES', array: array}),
-        setError: () => dispatch({type: 'SET_ERROR'}),
-        toggleUsersRepos: () => dispatch({type: 'TOGGLE_USERS_REPOS'})
+        setError: () => dispatch({type: 'SET_ERROR'})
     };
 };
 
