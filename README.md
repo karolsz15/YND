@@ -9,10 +9,10 @@ Github repositories explorer created with React and Redux. The application uses 
 
 ## 3. INSTRUCTIONS HOW TO RUN LOCALLY
 
-1. Go to project directory in your terminal (e.g. cd C:/project_directory/YND).
-2. Run npm install in your terminal in order to install all dependencies.
-3. Run npm start in your terminal in order to start local server.
-4. Browse http://localhost:3000/ in your browser to see the App.
+1. Go to project directory in your terminal (e.g. `cd C:/project_directory/YND`).
+2. Run `npm install` in your terminal in order to install all dependencies.
+3. Run `npm start` in your terminal in order to start local server.
+4. Browse `http://localhost:3000/` in your browser to see the App.
 
 ## 3. SCREENSHOTS:
 
