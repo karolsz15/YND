@@ -5,8 +5,7 @@ const initialState = {
     error: false,
     activeUser: null,
     activeReposDetails: null, //titles, descriptions and stars - JSON object response 
-    showListOfRepos: false,
-    currentlyOpened: []
+    reposListOpen: false
 };
 
 const reducer = (state = initialState, action) =>  {
@@ -15,8 +14,7 @@ const reducer = (state = initialState, action) =>  {
             return {
                 ...state,
                 searchQuery: action.input,
-                showListOfUsers: false,
-                showListOfRepos: false
+                showListOfUsers: false
             };
         case 'SET_USERNAMES':
             return {
@@ -37,19 +35,22 @@ const reducer = (state = initialState, action) =>  {
         case 'SET_ACTIVE_USER':
             return {
                 ...state,
-                activeUser: action.user,
-                numberOfRepositories: action.number
+                activeUser: action.user
             };
         case 'SET_ACTIVE_REPOS_DETAILS':
             return {
                 ...state,
                 activeReposDetails: action.data
             };
-        case 'TOGGLE_USERS_REPOS':
-            let trueOrFalse = !state.showListOfRepos;
+        case 'SET_REPOS_LISTS_OPEN':
             return {
                 ...state,
-                showListOfRepos: trueOrFalse
+                reposListOpen: true
+            };
+        case 'SET_REPOS_LISTS_CLOSED':
+            return {
+                ...state,
+                reposListOpen: false
             };
         };
     return state;

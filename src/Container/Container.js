@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classes from './Container.module.css';
 import { connect } from 'react-redux';
 import SingleUser from '../Components/SingleUser';
@@ -15,7 +15,6 @@ const Container = React.memo(props =>  {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            let newDataArray;
             if (inputRef.current && (searchQuery === inputRef.current.value)) {
                 const query =
                     searchQuery.length === 0
@@ -24,7 +23,7 @@ const Container = React.memo(props =>  {
                 axios.get(`https://api.github.com/search/users?q=${query}`)
                     .then( response => {
                         // handle success
-                        newDataArray = response.data.items.map(el => el.login);
+                        let newDataArray = response.data.items.map(el => el.login);
                         setUsernamesArray(newDataArray);
                     })
                     .catch( error => {
@@ -39,16 +38,14 @@ const Container = React.memo(props =>  {
         };
     }, [searchQuery, inputRef, setUsernamesArray, setError]);
 
-    let message;
-
-    message = props.usernamesArray && (props.usernamesArray.length === 0) 
+    let message = props.usernamesArray && (props.usernamesArray.length === 0) 
         ? `Sorry, couldn't find users for "${props.searchQuery}"` 
         : `Showing users for "${props.searchQuery}"`
     
     let listOfUsers = props.error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
 
     if (props.usernamesArray) {
-        //if more than 5 usernames match the user input
+        //if more than 5 usernames match the user input - render list of first 5 results
         if (props.usernamesArray.length > 5) {
             listOfUsers = [0,1,2,3,4].map(el => (
                 <SingleUser 
@@ -56,7 +53,7 @@ const Container = React.memo(props =>  {
                     clicked={() => props.toggleUsersRepos()}
                     key={props.usernamesArray[el]} />
             ));
-        //if less than 5 usernames match the user input
+        //if less than 5 usernames match the user input - render list of all results
         } else {
             listOfUsers = [0,1,2,3,4].slice(0, props.usernamesArray.length).map(el => (
                 <SingleUser 
@@ -64,7 +61,7 @@ const Container = React.memo(props =>  {
                     clicked={() => props.toggleUsersRepos()}
                     key={props.usernamesArray[el]} />
             ));
-        }
+        };
     };
         
     return (

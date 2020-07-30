@@ -11,7 +11,7 @@ const SingleRepo = props => {
                                 {props.singleRepoTitle}
                             </div>
                             <div>
-                                {props.singleRepoStars} <i class="fa fa-star"></i> 
+                                {props.singleRepoStars} <i className="fa fa-star"></i> 
                             </div>
                         </div>
                         <div className={classes.RepoDescription}>
