@@ -124,8 +124,8 @@ a {
 }
 
 .Wrap {
-        width: 90%;
-        align-self: flex-end;
+    width: 90%;
+    align-self: flex-end;
 }
 
 .SingleRepo {

@@ -1,6 +1,5 @@
 import React, { useEffect, useRef } from 'react';
 import classes from './Container.module.css';
-// import './Dropdown.css';
 import { connect } from 'react-redux';
 import SingleUser from '../Components/SingleUser';
 import axios from 'axios';
@@ -11,6 +10,9 @@ const Container = React.memo(props =>  {
     const { searchQuery, setUsernamesArray, setError } = props;
 
     // GET USERS
+    //setTimeout is used in order to limit HTTP requests
+    //request is sent after 0.5s without input change instead of request on every keystroke
+
     useEffect(() => {
         const timer = setTimeout(() => {
             let newDataArray;
@@ -31,7 +33,7 @@ const Container = React.memo(props =>  {
                         setError();
                     });
             }
-        }, 1000);
+        }, 500);
         return () => {
             clearTimeout(timer);
         };
@@ -42,12 +44,23 @@ const Container = React.memo(props =>  {
         let listOfUsers = props.error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
 
         if (props.usernamesArray) {
-            listOfUsers = [0,1,2,3,4].map(el => (
-                <SingleUser 
-                    username={props.usernamesArray[el]} 
-                    clicked={() => props.toggleUsersRepos()}
-                    key={props.usernamesArray[el]} />
-            ))
+            //if more than 5 usernames match the user input
+            if (props.usernamesArray.length > 5) {
+                listOfUsers = [0,1,2,3,4].map(el => (
+                    <SingleUser 
+                        username={props.usernamesArray[el]} 
+                        clicked={() => props.toggleUsersRepos()}
+                        key={props.usernamesArray[el]} />
+                ));
+            //if less than 5 usernames match the user input
+            } else {
+                listOfUsers = [0,1,2,3,4].slice(0, props.usernamesArray.length).map(el => (
+                    <SingleUser 
+                        username={props.usernamesArray[el]} 
+                        clicked={() => props.toggleUsersRepos()}
+                        key={props.usernamesArray[el]} />
+                ));
+            }
         };
         
         return (
@@ -61,7 +74,6 @@ const Container = React.memo(props =>  {
                         placeholder="Enter username"></input>
                     <button
                         type="submit"
-                        // onClick={props.searchButtonClickHandler} 
                         className={classes.SearchButton} >
                         Search</button>
                 </form>

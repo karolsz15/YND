@@ -8,29 +8,28 @@ import ReposLink from './ReposLink';
 
 const SingleUser = props => {
 
-    const [open, setOpen] = useState(false);
-    const { setActiveUser, setActiveReposDetails, setError } = props;
+    //local state in order to handle single user's repositories list toggling independently
+    const [open, setOpen] = useState(false); 
+    
     let singleRepoArray, singleRepoTitle, singleRepoDescription, singleRepoStars, singleRepoLink;
-
     singleRepoArray = null;
     singleRepoTitle = 'spinner...';
     singleRepoDescription = 'spinner...';
 
-    // GET USER'S REPOS
+    //get user's repos
     const getUsersRepos = () => {
         axios.get(`https://api.github.com/users/${props.username}/repos`)
         .then( response => {
             // handle success
-            setActiveUser(props.username);
-            setActiveReposDetails(response.data); //response.data is an array of objects
-            console.log(response.data);
+            props.setActiveUser(props.username);
+            props.setActiveReposDetails(response.data); //response.data is an array of objects
             props.clicked();
             setOpen(!open);
         })
         .catch( error => {
             // handle error
             console.log(error);
-            setError();
+            props.setError();
         });
     }
 
@@ -49,7 +48,7 @@ const SingleUser = props => {
                     singleRepoDescription={singleRepoDescription} 
                     singleRepoStars={singleRepoStars} 
                     singleRepoLink={singleRepoLink}
-                    key={singleRepoTitle} />
+                    key={singleRepoLink} />
             );
         };
     };
@@ -60,7 +59,8 @@ const SingleUser = props => {
                         {props.username} 
                         {!open ? 
                             <i class="fa fa-angle-down" style={{fontSize:'2em', fontWeight: '900'}}></i> :
-                            <i class="fa fa-angle-up" style={{fontSize:'2em', fontWeight: '900'}}></i> }
+                            <i class="fa fa-angle-up" style={{fontSize:'2em', fontWeight: '900'}}></i> 
+                        }
                     </div>
                     {props.showListOfRepos && open ? listOfRepos : null}
                     {props.showListOfRepos && open ? <ReposLink username={props.username}/> : null}
@@ -80,8 +80,7 @@ const mapDispatchToProps = dispatch => {
     return {
         setActiveUser: (user) => dispatch({type: 'SET_ACTIVE_USER', user: user}),
         setActiveReposDetails: (data) => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}),
-        setError: () => dispatch({type: 'SET_ERROR'}),
-        showUsersRepos: () => dispatch({type: 'SHOW_USERS_REPOS'}),
+        setError: () => dispatch({type: 'SET_ERROR'})
     };
 };
 
