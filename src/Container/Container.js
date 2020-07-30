@@ -39,50 +39,54 @@ const Container = React.memo(props =>  {
         };
     }, [searchQuery, inputRef, setUsernamesArray, setError]);
 
-        let message = `Showing users for "${props.searchQuery}"`
-        
-        let listOfUsers = props.error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
+    let message;
 
-        if (props.usernamesArray) {
-            //if more than 5 usernames match the user input
-            if (props.usernamesArray.length > 5) {
-                listOfUsers = [0,1,2,3,4].map(el => (
-                    <SingleUser 
-                        username={props.usernamesArray[el]} 
-                        clicked={() => props.toggleUsersRepos()}
-                        key={props.usernamesArray[el]} />
-                ));
-            //if less than 5 usernames match the user input
-            } else {
-                listOfUsers = [0,1,2,3,4].slice(0, props.usernamesArray.length).map(el => (
-                    <SingleUser 
-                        username={props.usernamesArray[el]} 
-                        clicked={() => props.toggleUsersRepos()}
-                        key={props.usernamesArray[el]} />
-                ));
-            }
-        };
+    message = props.usernamesArray && (props.usernamesArray.length === 0) 
+        ? `Sorry, couldn't find users for "${props.searchQuery}"` 
+        : `Showing users for "${props.searchQuery}"`
+    
+    let listOfUsers = props.error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
+
+    if (props.usernamesArray) {
+        //if more than 5 usernames match the user input
+        if (props.usernamesArray.length > 5) {
+            listOfUsers = [0,1,2,3,4].map(el => (
+                <SingleUser 
+                    username={props.usernamesArray[el]} 
+                    clicked={() => props.toggleUsersRepos()}
+                    key={props.usernamesArray[el]} />
+            ));
+        //if less than 5 usernames match the user input
+        } else {
+            listOfUsers = [0,1,2,3,4].slice(0, props.usernamesArray.length).map(el => (
+                <SingleUser 
+                    username={props.usernamesArray[el]} 
+                    clicked={() => props.toggleUsersRepos()}
+                    key={props.usernamesArray[el]} />
+            ));
+        }
+    };
         
-        return (
-            <div className={classes.Container}>
-                <form onSubmit={props.formSubmitHandler}>
-                    <input
-                        ref={inputRef}
-                        onChange={e => props.searchInputChangeHandler(e.target.value)}
-                        type="text" 
-                        className={classes.SearchInput} 
-                        placeholder="Enter username"></input>
-                    <button
-                        type="submit"
-                        className={classes.SearchButton} >
-                        Search</button>
-                </form>
-                <div className={classes.InfoMessage}>
-                    {props.showListOfUsers ? message : null}
-                </div>
-                {props.usernamesArray && props.showListOfUsers ? listOfUsers : null}
-            </div>    
-        )
+    return (
+        <div className={classes.Container}>
+            <form onSubmit={props.formSubmitHandler}>
+                <input
+                    ref={inputRef}
+                    onChange={e => props.searchInputChangeHandler(e.target.value)}
+                    type="text" 
+                    className={classes.SearchInput} 
+                    placeholder="Enter username"></input>
+                <button
+                    type="submit"
+                    className={classes.SearchButton} >
+                    Search</button>
+            </form>
+            <div className={classes.InfoMessage}>
+                {props.showListOfUsers ? message : null}
+            </div>
+            {props.usernamesArray && props.showListOfUsers ? listOfUsers : null}
+        </div>    
+    );
 });
 
 const mapStateToProps = state => {

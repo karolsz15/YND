@@ -17,41 +17,41 @@ const reducer = (state = initialState, action) =>  {
                 searchQuery: action.input,
                 showListOfUsers: false,
                 showListOfRepos: false
-            }
+            };
         case 'SET_USERNAMES':
             return {
                 ...state,
                 usernamesArray: action.array
-            }
+            };
         case 'SET_ERROR':
             return {
                 ...state,
                 error: true
-            }
+            };
         case 'FORM_SUBMITTED':
             action.event.preventDefault();
             return {
                 ...state,
                 showListOfUsers: true
-            }
+            };
         case 'SET_ACTIVE_USER':
             return {
                 ...state,
                 activeUser: action.user,
                 numberOfRepositories: action.number
-            }
+            };
         case 'SET_ACTIVE_REPOS_DETAILS':
             return {
                 ...state,
                 activeReposDetails: action.data
-            }
+            };
         case 'TOGGLE_USERS_REPOS':
             let trueOrFalse = !state.showListOfRepos;
             return {
                 ...state,
                 showListOfRepos: trueOrFalse
-            }
-        }
+            };
+        };
     return state;
 };
 
