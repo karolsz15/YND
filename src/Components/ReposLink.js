@@ -6,15 +6,13 @@ const ReposLink = props => (
         <div className={classes.SingleRepo}>
             <div className={classes.TitleAndDescription}>
                 <div className={classes.RepoTitle}>
-                    Other user's repositories! 
+                    Other {props.username}'s repositories...
+                    <i class="fa fa-arrow-right" aria-hidden="true"></i> 
                 </div>
                 <div className={classes.RepoDescription}>
                     Click here to see all {props.username}'s repositories!
                 </div>
             </div>
-            <div>
-                <i class="fa fa-arrow-right" aria-hidden="true"></i>
-            </div>  
         </div>
     </a>
 );

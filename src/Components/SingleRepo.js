@@ -7,15 +7,17 @@ const SingleRepo = props => {
                 <div className={classes.SingleRepo}>
                     <div className={classes.TitleAndDescription}>
                         <div className={classes.RepoTitle}>
-                            {props.singleRepoTitle} 
+                            <div>
+                                {props.singleRepoTitle}
+                            </div>
+                            <div>
+                                {props.singleRepoStars} <i class="fa fa-star"></i> 
+                            </div>
                         </div>
                         <div className={classes.RepoDescription}>
                             {props.singleRepoDescription}
                         </div>
                     </div>
-                    <div>
-                        {props.singleRepoStars} <i class="fa fa-star"></i>
-                    </div>  
                 </div>
         </a>
     );

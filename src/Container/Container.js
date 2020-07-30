@@ -37,7 +37,7 @@ const Container = React.memo(props =>  {
         };
     }, [searchQuery, inputRef, setUsernamesArray, setError]);
 
-        let message = `Showing users for "${props.searchQuery}"...`
+        let message = `Showing users for "${props.searchQuery}"`
         
         let listOfUsers = props.error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
 
@@ -62,7 +62,7 @@ const Container = React.memo(props =>  {
                     <button
                         type="submit"
                         // onClick={props.searchButtonClickHandler} 
-                        className={classes.SearchButton}>
+                        className={classes.SearchButton} >
                         Search</button>
                 </form>
                 <div className={classes.InfoMessage}>

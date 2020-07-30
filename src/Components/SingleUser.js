@@ -57,7 +57,10 @@ const SingleUser = props => {
     return (
         <React.Fragment>
                     <div onClick={() => getUsersRepos()} className={classes.DropdownContainer}>
-                        {props.username}<i class="fa fa-angle-down" style={{fontSize:'1.5em', margin:'1em'}}></i>
+                        {props.username} 
+                        {!open ? 
+                            <i class="fa fa-angle-down" style={{fontSize:'2em', fontWeight: '900'}}></i> :
+                            <i class="fa fa-angle-up" style={{fontSize:'2em', fontWeight: '900'}}></i> }
                     </div>
                     {props.showListOfRepos && open ? listOfRepos : null}
                     {props.showListOfRepos && open ? <ReposLink username={props.username}/> : null}

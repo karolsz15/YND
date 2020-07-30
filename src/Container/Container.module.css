@@ -7,8 +7,12 @@
 }
 
 body {
-    background-color: var(--dark-grey);
+    box-sizing: border-box;
+    background-color: var(--white);
     color: var(--black);
+    font-family:'Roboto',sans-serif;
+    font-weight: 300;
+
 }
 
 a {
@@ -16,9 +20,56 @@ a {
     text-decoration: inherit;
 }
 
-/* form {
-    width: 100%;
-} */
+
+/* NORMALIZE CSS */
+/**
+ * 1. Change the font styles in all browsers.
+ * 2. Remove the margin in Firefox and Safari.
+ */
+
+ button,
+ input,
+ optgroup,
+ select,
+ textarea {
+   font-family: inherit; /* 1 */
+   font-size: 100%; /* 1 */
+   line-height: 1.15; /* 1 */
+   margin: 0; /* 2 */
+   border: 2px solid var(--dark-grey);
+ }
+ 
+ /**
+  * Show the overflow in IE.
+  * 1. Show the overflow in Edge.
+  */
+ 
+ button,
+ input { /* 1 */
+   overflow: visible;
+ }
+ 
+ /**
+  * Remove the inheritance of text transform in Edge, Firefox, and IE.
+  * 1. Remove the inheritance of text transform in Firefox.
+  */
+ 
+ button,
+ select { /* 1 */
+   text-transform: none;
+ }
+ 
+ /**
+  * Correct the inability to style clickable types in iOS and Safari.
+  */
+ 
+ button,
+ [type="button"],
+ [type="reset"],
+ [type="submit"] {
+   -webkit-appearance: button;
+ }
+/* END OF NORMALIZE CSS */
 
 ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
     color: #707070;
@@ -37,15 +88,16 @@ a {
     display: flex;
     flex-direction: column;
     max-width: 600px;
-    margin: 1em auto;
     padding: 1em;
     background-color: var(--white);
 }
 
 .SearchInput {
+    box-sizing: border-box;
     background-color: var(--light-grey);
-    padding: .25em;
     width: 100%;
+    padding: .5em .75em;
+    margin: .25em;
 }
 
 .SearchButton {
@@ -54,13 +106,21 @@ a {
     width: 100%;
     padding: 1em 0;
     margin: 1em auto;
+    border-radius: .25em;
+}
+
+.InfoMessage {
+    margin-bottom: .5em;
 }
 
 .DropdownContainer {
     background-color: var(--light-grey);
+    color: black;
     margin: .25em;
-    padding: .25em;
-    text-align: center;
+    padding: .5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .Wrap {
@@ -71,12 +131,18 @@ a {
 .SingleRepo {
     background-color: var(--dark-grey);
     color: black;
-    display: flex;
-    justify-content: space-between;
     margin: .5em 0;
-    padding: .5em;
+    padding: .5em .5em;
 }
 
 .RepoTitle {
     font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .25em;
+}
+
+.RepoDescription {
+    font-size: .8em;
+    font-weight: 500;
 }
