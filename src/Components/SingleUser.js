@@ -91,7 +91,7 @@ const SingleUser = props => {
 const mapStateToProps = state => {
     return {
         activeUser: state.activeUserName,
-        activeReposDetails: state.activeReposDetails, //titles, descriptions and stars
+        activeReposDetails: state.activeReposDetails //titles, descriptions and stars
     };
 };
 
@@ -99,8 +99,7 @@ const mapDispatchToProps = dispatch => {
     return {
         setActiveUser: (user) => dispatch({type: 'SET_ACTIVE_USER', user: user}),
         setActiveReposDetails: (data) => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}),
-        setError: () => dispatch({type: 'SET_ERROR'}),
-        clearActiveReposDetails: () => dispatch({type: 'CLEAR'})
+        setError: () => dispatch({type: 'SET_ERROR'})
     };
 };
 
