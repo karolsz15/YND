@@ -1,14 +1,26 @@
-import React, { useEffect, useRef } from 'react';
-import { connect } from 'react-redux';
+import React, { useEffect, useRef, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 
 import classes from './Container.module.css';
 import SingleUser from '../Components/SingleUser';
 
-const Container = React.memo(props =>  {
+const Container = React.memo( () =>  {
+
+    //map state to consts
+    const searchQuery = useSelector(state => state.searchQuery);
+    const showListOfUsers = useSelector(state => state.showListOfUsers);
+    const usernamesArray = useSelector(state => state.usernamesArray);
+    const error = useSelector(state => state.error);
+
+    //map dispatch to consts
+    const dispatch = useDispatch();
+    const searchInputChangeHandler = useCallback( input => dispatch({type: 'INPUT_CHANGED', input: input}), [dispatch] );
+    const formSubmitHandler = useCallback( event => dispatch({type: 'FORM_SUBMITTED', event: event}), [dispatch] );
+    const setUsernamesArray = useCallback( array => dispatch({type: 'SET_USERNAMES', array: array}), [dispatch] );
+    const setError = useCallback( () => dispatch({type: 'SET_ERROR'}), [dispatch] );
 
     const inputRef = useRef();
-    const { searchQuery, setUsernamesArray, setError } = props;
 
     // GET USERS
     //setTimeout is used in order to limit HTTP requests
@@ -38,36 +50,36 @@ const Container = React.memo(props =>  {
         };
     }, [searchQuery, inputRef, setUsernamesArray, setError]);
 
-    let message = props.usernamesArray && (props.usernamesArray.length === 0) 
-        ? `Sorry, couldn't find users for "${props.searchQuery}"` 
-        : `Showing users for "${props.searchQuery}"`
+    let message = usernamesArray && (usernamesArray.length === 0) 
+        ? `Sorry, couldn't find users for "${searchQuery}"` 
+        : `Showing users for "${searchQuery}"`
     
-    let listOfUsers = props.error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
+    let listOfUsers = error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
 
-    if (props.usernamesArray) {
+    if (usernamesArray) {
         //if more than 5 usernames match the user input - render list of first 5 results
-        if (props.usernamesArray.length > 5) {
+        if (usernamesArray.length > 5) {
             listOfUsers = [0,1,2,3,4].map(el => (
                 <SingleUser 
-                    username={props.usernamesArray[el]} 
-                    key={props.usernamesArray[el]} />
+                    username={usernamesArray[el]} 
+                    key={usernamesArray[el]} />
             ));
         //if less than 5 usernames match the user input - render list of all results
         } else {
-            listOfUsers = [0,1,2,3,4].slice(0, props.usernamesArray.length).map(el => (
+            listOfUsers = [0,1,2,3,4].slice(0, usernamesArray.length).map(el => (
                 <SingleUser 
-                    username={props.usernamesArray[el]} 
-                    key={props.usernamesArray[el]} />
+                    username={usernamesArray[el]} 
+                    key={usernamesArray[el]} />
             ));
         };
     };
         
     return (
         <div className={classes.Container}>
-            <form onSubmit={props.formSubmitHandler}>
+            <form onSubmit={formSubmitHandler}>
                 <input
                     ref={inputRef}
-                    onChange={e => props.searchInputChangeHandler(e.target.value)}
+                    onChange={e => searchInputChangeHandler(e.target.value)}
                     type="text" 
                     className={classes.SearchInput} 
                     placeholder="Enter username">
@@ -79,29 +91,11 @@ const Container = React.memo(props =>  {
                 </button>
             </form>
             <div className={classes.InfoMessage}>
-                {props.showListOfUsers ? message : null}
+                {showListOfUsers ? message : null}
             </div>
-            {props.usernamesArray && props.showListOfUsers ? listOfUsers : null}
+            {usernamesArray && showListOfUsers ? listOfUsers : null}
         </div>    
     );
 });
 
-const mapStateToProps = state => {
-    return {
-        searchQuery: state.searchQuery,
-        showListOfUsers: state.showListOfUsers,
-        usernamesArray: state.usernamesArray,
-        error: state.error
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        searchInputChangeHandler: (input) => dispatch({type: 'INPUT_CHANGED', input: input}),
-        formSubmitHandler: (event) => dispatch({type: 'FORM_SUBMITTED', event: event}),
-        setUsernamesArray: (array) => dispatch({type: 'SET_USERNAMES', array: array}),
-        setError: () => dispatch({type: 'SET_ERROR'})
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default Container;
