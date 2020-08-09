@@ -15,7 +15,7 @@ const Container = React.memo(props =>  {
     //request is sent after 0.5s without input change instead of request on every keystroke
     useEffect(() => {
         const timer = setTimeout(() => {
-            if (inputRef.current && (searchQuery === inputRef.current.value)) {
+            if (searchQuery && inputRef.current && (searchQuery === inputRef.current.value)) {
                 const query =
                     searchQuery.length === 0
                     ? ''
