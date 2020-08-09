@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useCallback } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import _ from 'lodash';
 
@@ -8,6 +8,15 @@ import ReposLink from './ReposLink';
 import classes from '../Container/Container.module.css';
 
 const SingleUser = props => {
+
+    //map state to consts
+    const activeReposDetails = useSelector(state => state.activeReposDetails);
+
+    //map dispatch to consts
+    const dispatch = useDispatch();
+    const setActiveUser = useCallback( user => dispatch({type: 'SET_ACTIVE_USER', user: user}), [dispatch]);
+    const setActiveReposDetails = useCallback( data => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}), [dispatch]);
+    const setError = useCallback( () => dispatch({type: 'SET_ERROR'}), [dispatch]);
 
     //local state in order to handle single user's repositories list toggling independently
     const [reposListOpened, setReposListOpened] = useState(false);
@@ -20,25 +29,25 @@ const SingleUser = props => {
     const getUsersRepos = () => {
         axios.get(`https://api.github.com/users/${props.username}/repos`)
         .then( response => {
-            props.setActiveUser(props.username);
-            props.setActiveReposDetails(response.data); //response.data is an array of objects
+            setActiveUser(props.username);
+            setActiveReposDetails(response.data); //response.data is an array of objects
             setReposListOpened(!reposListOpened);
             setActiveReposList(response.data);
         })
         .catch( error => {
             console.log(error);
-            props.setError();
+            setError();
         });
     };
 
     let listOfRepos = [];
 
-    if (props.activeReposDetails) {
+    if (activeReposDetails) {
 
         //if user has AT LEAST 4 repos, show list of 4 repos
-        if (props.activeReposDetails.length >= 4) {
+        if (activeReposDetails.length >= 4) {
             for (let i = 0; i <4; i++) {
-                singleRepoArray = _.values(props.activeReposDetails[i]); //making array out of object with lodash
+                singleRepoArray = _.values(activeReposDetails[i]); //making array out of object with lodash
                 singleRepoLink = singleRepoArray[6];
                 singleRepoTitle = singleRepoArray[2];
                 singleRepoDescription = singleRepoArray[7];
@@ -55,8 +64,8 @@ const SingleUser = props => {
         } else {
 
         //if user has LESS THAN 4 repos, show all user's repos
-            for (let i = 0; i < props.activeReposDetails.length; i++) {
-                singleRepoArray = _.values(props.activeReposDetails[i]); //making array out of object with lodash
+            for (let i = 0; i < activeReposDetails.length; i++) {
+                singleRepoArray = _.values(activeReposDetails[i]); //making array out of object with lodash
                 singleRepoLink = singleRepoArray[6];
                 singleRepoTitle = singleRepoArray[2];
                 singleRepoDescription = singleRepoArray[7];
@@ -77,30 +86,15 @@ const SingleUser = props => {
         <React.Fragment>
             <div onClick={() => getUsersRepos()} className={classes.DropdownContainer} id={props.key}>
                 {props.username} 
-                {!reposListOpened || (activeReposList !== props.activeReposDetails) ? 
+                {!reposListOpened || (activeReposList !== activeReposDetails) ? 
                     <i className="fa fa-angle-down" style={{fontSize:'2em', fontWeight: '900'}}></i> :
                     <i className="fa fa-angle-up" style={{fontSize:'2em', fontWeight: '900'}}></i> 
                 }
             </div>
-            {reposListOpened && (activeReposList === props.activeReposDetails) ? listOfRepos : null}
-            {reposListOpened && (activeReposList === props.activeReposDetails) ? <ReposLink username={props.username}/> : null}
+            {reposListOpened && (activeReposList === activeReposDetails) ? listOfRepos : null}
+            {reposListOpened && (activeReposList === activeReposDetails) ? <ReposLink username={props.username}/> : null}
         </React.Fragment>
     );
 };
 
-const mapStateToProps = state => {
-    return {
-        activeUser: state.activeUserName,
-        activeReposDetails: state.activeReposDetails //titles, descriptions and stars
-    };
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        setActiveUser: (user) => dispatch({type: 'SET_ACTIVE_USER', user: user}),
-        setActiveReposDetails: (data) => dispatch({type: 'SET_ACTIVE_REPOS_DETAILS', data: data}),
-        setError: () => dispatch({type: 'SET_ERROR'})
-    };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(SingleUser);
+export default SingleUser;
