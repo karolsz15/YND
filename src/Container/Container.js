@@ -43,16 +43,16 @@ const Container = React.memo( () =>  {
                         console.log(error);
                         setError();
                     });
-            }
+            };
         }, 500);
         return () => {
             clearTimeout(timer);
         };
     }, [searchQuery, inputRef, setUsernamesArray, setError]);
 
-    const message = usernamesArray && (usernamesArray.length === 0) 
+    const message = (usernamesArray && (usernamesArray.length === 0)) || error
         ? `Sorry, couldn't find users for "${searchQuery}"` 
-        : `Showing users for "${searchQuery}"`
+        : `Showing users for "${searchQuery}"`;
     
     let listOfUsers = error ? <p>Error! Users can't be loaded</p> : <p>Loading users...</p>;
 
