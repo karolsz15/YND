@@ -35,7 +35,7 @@ const Container = React.memo( () =>  {
                 axios.get(`https://api.github.com/search/users?q=${query}`)
                     .then( response => {
                         // handle success
-                        let newDataArray = response.data.items.map(el => el.login);
+                        const newDataArray = response.data.items.map(el => el.login);
                         setUsernamesArray(newDataArray);
                     })
                     .catch( error => {
@@ -50,7 +50,7 @@ const Container = React.memo( () =>  {
         };
     }, [searchQuery, inputRef, setUsernamesArray, setError]);
 
-    let message = usernamesArray && (usernamesArray.length === 0) 
+    const message = usernamesArray && (usernamesArray.length === 0) 
         ? `Sorry, couldn't find users for "${searchQuery}"` 
         : `Showing users for "${searchQuery}"`
     
@@ -59,17 +59,19 @@ const Container = React.memo( () =>  {
     if (usernamesArray) {
         //if more than 5 usernames match the user input - render list of first 5 results
         if (usernamesArray.length > 5) {
-            listOfUsers = [0,1,2,3,4].map(el => (
-                <SingleUser 
-                    username={usernamesArray[el]} 
-                    key={usernamesArray[el]} />
+            //same outcome as: listOfUsers = [0,1,2,3,4].map(el => (...username={usernamesArray[el]...));
+            listOfUsers = usernamesArray.map( (el, index) => (
+                index < 5 ? <SingleUser 
+                    username={usernamesArray[index]} 
+                    key={usernamesArray[index]} /> : null
             ));
         //if less than 5 usernames match the user input - render list of all results
         } else {
-            listOfUsers = [0,1,2,3,4].slice(0, usernamesArray.length).map(el => (
+                //same outcome as: listOfUsers = [0,1,2,3,4].slice(0, usernamesArray.length).map(el => (...username={usernamesArray[el]...));
+                listOfUsers = usernamesArray.map( (el, index) => (
                 <SingleUser 
-                    username={usernamesArray[el]} 
-                    key={usernamesArray[el]} />
+                    username={usernamesArray[index]} 
+                    key={usernamesArray[index]} />
             ));
         };
     };
