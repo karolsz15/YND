@@ -40,7 +40,7 @@ const SingleUser = props => {
         });
     };
 
-    let listOfRepos = [];
+    const listOfRepos = [];
 
     if (activeReposDetails) {
 
