@@ -2,6 +2,7 @@
   "env" : {
       "browser" : true
   },
+  "parser": "babel-eslint",
   "parserOptions": {
       "sourceType": "module"
   },
@@ -14,6 +15,8 @@
     "func-names": "off",
     "no-process-exit": "off",
     "object-shorthand": "off",
-    "class-methods-use-this": "off"
+    "class-methods-use-this": "off",
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }],
+    "no-underscore-dangle": ["error", { "allow": ["__REDUX_DEVTOOLS_EXTENSION__"] }]
   }
 }

@@ -6,13 +6,13 @@ import classes from './Container.module.css';
 import SingleUser from '../Components/SingleUser';
 
 const Container = React.memo(() => {
-  //map state to consts
+  // map state to consts
   const searchQuery = useSelector((state) => state.searchQuery);
   const showListOfUsers = useSelector((state) => state.showListOfUsers);
   const usernamesArray = useSelector((state) => state.usernamesArray);
   const error = useSelector((state) => state.error);
 
-  //map dispatch to consts
+  // map dispatch to consts
   const dispatch = useDispatch();
   const searchInputChangeHandler = useCallback(
     (input) => dispatch({ type: 'INPUT_CHANGED', input: input }),
@@ -33,8 +33,8 @@ const Container = React.memo(() => {
   const inputRef = useRef();
 
   // GET USERS
-  //setTimeout is used in order to limit HTTP requests
-  //request is sent after 0.5s without input change instead of request on every keystroke
+  // setTimeout is used in order to limit HTTP requests
+  // request is sent after 0.5s without input change instead of request on every keystroke
   useEffect(() => {
     const timer = setTimeout(() => {
       if (
@@ -74,50 +74,47 @@ const Container = React.memo(() => {
   );
 
   if (usernamesArray) {
-    //if more than 5 usernames match the user input - render list of first 5 results
+    // if more than 5 usernames match the user input - render list of first 5 results
     if (usernamesArray.length > 5) {
-      //same outcome as: listOfUsers = [0,1,2,3,4].map(el => (...username={usernamesArray[el]...));
+      // same outcome as: listOfUsers = [0,1,2,3,4].map(el => (...username={usernamesArray[el]...));
       listOfUsers = usernamesArray.map((el, index) =>
         index < 5 ? (
           <SingleUser
-                  username={usernamesArray[index]} 
-                  key={usernamesArray[index]}
-                /> : null
+            username={usernamesArray[index]}
+            key={usernamesArray[index]}
+          />
+        ) : null
       );
-      //if less than 5 usernames match the user input - render list of all results
+      // if less than 5 usernames match the user input - render list of all results
     } else {
-      //same outcome as: listOfUsers = [0,1,2,3,4].slice(0, usernamesArray.length).map(el => (...username={usernamesArray[el]...));
+      // same outcome as: listOfUsers = [0,1,2,3,4].slice(0, usernamesArray.length).map(el => (...username={usernamesArray[el]...));
       listOfUsers = usernamesArray.map((el, index) => (
-                  <SingleUser 
-                  username={usernamesArray[index]} 
-                  key={usernamesArray[index]}
-                />
-            ));
+        <SingleUser
+          username={usernamesArray[index]}
+          key={usernamesArray[index]}
+        />
+      ));
     }
   }
 
   return (
-      <div className={classes.Container}>
-          <form onSubmit={formSubmitHandler}>
-              <input
-                  ref={inputRef}
-                  onChange={e => searchInputChangeHandler(e.target.value)}
-                  type="text" 
-                  className={classes.SearchInput} 
-                  placeholder="Enter username"
-                >
-        ></input>
-              <button
-                  type="submit"
-                  className={classes.SearchButton}
-                >
+    <div className={classes.Container}>
+      <form onSubmit={formSubmitHandler}>
+        <input
+          ref={inputRef}
+          onChange={(e) => searchInputChangeHandler(e.target.value)}
+          type="text"
+          className={classes.SearchInput}
+          placeholder="Enter username"
+        />
+        <button type="submit" className={classes.SearchButton}>
           Search
         </button>
       </form>
-          <div className={classes.InfoMessage}>
-              {showListOfUsers ? message : null}
+      <div className={classes.InfoMessage}>
+        {showListOfUsers ? message : null}
       </div>
-          {usernamesArray && showListOfUsers ? listOfUsers : null}
+      {usernamesArray && showListOfUsers ? listOfUsers : null}
     </div>
   );
 });

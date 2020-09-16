@@ -1,29 +1,43 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import classes from '../Container/Container.module.css';
 
 const SingleRepo = (props) => {
+  const {
+    singleRepoLink,
+    singleRepoTitle,
+    singleRepoStars,
+    singleRepoDescription,
+  } = props;
+
   return (
     <a
       className={classes.Wrap}
-      href={props.singleRepoLink}
+      href={singleRepoLink}
       target="_blank"
       rel="noopener noreferrer"
     >
       <div className={classes.SingleRepo}>
         <div className={classes.TitleAndDescription}>
           <div className={classes.RepoTitle}>
-            <div>{props.singleRepoTitle}</div>
+            <div>{singleRepoTitle}</div>
             <div>
-              {props.singleRepoStars} <i className="fa fa-star" />
+              {singleRepoStars}
+              <i className="fa fa-star" />
             </div>
           </div>
-          <div className={classes.RepoDescription}>
-            {props.singleRepoDescription}
-          </div>
+          <div className={classes.RepoDescription}>{singleRepoDescription}</div>
         </div>
       </div>
     </a>
   );
+};
+
+SingleRepo.propTypes = {
+  singleRepoLink: PropTypes.string.isRequired,
+  singleRepoTitle: PropTypes.string.isRequired,
+  singleRepoStars: PropTypes.number.isRequired,
+  singleRepoDescription: PropTypes.string,
 };
 
 export default SingleRepo;

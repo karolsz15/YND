@@ -42,6 +42,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         activeReposDetails: action.data,
       };
+    // no default
   }
   return state;
 };
