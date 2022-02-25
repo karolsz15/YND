@@ -27,7 +27,7 @@ const ReposLink = (props) => {
 };
 
 ReposLink.propTypes = {
-  username: PropTypes.string
+  username: PropTypes.string,
 };
 
 export default ReposLink;

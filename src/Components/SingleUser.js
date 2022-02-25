@@ -93,27 +93,39 @@ const SingleUser = (props) => {
             key={singleRepoLink}
           />
         );
-      };
-    };
-  };
+      }
+    }
+  }
 
   return (
-    <React.Fragment>
-      <div onClick={() => getUsersRepos()} className={classes.DropdownContainer} id={key}>
-        {username} 
-        {!reposListOpened || (activeReposList !== activeReposDetails) ? 
-            <i className="fa fa-angle-down" style={{fontSize:'2em', fontWeight: '900'}} /> :
-            <i className="fa fa-angle-up" style={{ fontSize: '2em', fontWeight: '900' }} /> }
+    <>
+      <div
+        onClick={() => getUsersRepos()}
+        className={classes.DropdownContainer}
+        id={key}
+      >
+        {username}
+        {!reposListOpened || activeReposList !== activeReposDetails ? (
+          <i className="fa fa-angle-down" style={{fontSize:'2em', fontWeight: '900'}} /> :
+          <i
+            className="fa fa-angle-up"
+            style={{ fontSize: '2em', fontWeight: '900' }}
+          />
+        )}
       </div>
-      {reposListOpened && (activeReposList === activeReposDetails) ? listOfRepos : null}
-      {reposListOpened && (activeReposList === activeReposDetails) ? <ReposLink username={username} /> : null}
-    </React.Fragment>
+      {reposListOpened && activeReposList === activeReposDetails
+        ? listOfRepos
+        : null}
+      {reposListOpened && activeReposList === activeReposDetails ? (
+        <ReposLink username={username} />
+      ) : null}
+    </>
   );
 };
 
 ReposLink.propTypes = {
   username: PropTypes.string.isRequired,
-  key: PropTypes.string.isRequired
+  key: PropTypes.string.isRequired,
 };
 
 export default SingleUser;
