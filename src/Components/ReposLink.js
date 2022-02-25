@@ -2,8 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import classes from '../Container/Container.module.css';
 
-const ReposLink = (props) => {
-  const { username } = props;
+const ReposLink = ({ username }) => {
   return (
     <a
       className={classes.Wrap}

@@ -106,7 +106,11 @@ const SingleUser = (props) => {
       >
         {username}
         {!reposListOpened || activeReposList !== activeReposDetails ? (
-          <i className="fa fa-angle-down" style={{fontSize:'2em', fontWeight: '900'}} /> :
+          <i
+            className="fa fa-angle-down"
+            style={{ fontSize: '2em', fontWeight: '900' }}
+          />
+        ) : (
           <i
             className="fa fa-angle-up"
             style={{ fontSize: '2em', fontWeight: '900' }}

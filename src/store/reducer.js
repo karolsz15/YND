@@ -1,3 +1,5 @@
+import * as TYPES from './types';
+
 const initialState = {
   searchQuery: '',
   showListOfUsers: false,
@@ -10,34 +12,34 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
-    case 'INPUT_CHANGED':
+    case TYPES.INPUT_CHANGED:
       return {
         ...state,
         searchQuery: action.input,
         showListOfUsers: false,
       };
-    case 'SET_USERNAMES':
+    case TYPES.SET_USERNAMES:
       return {
         ...state,
         usernamesArray: action.array,
       };
-    case 'SET_ERROR':
+    case TYPES.SET_ERROR:
       return {
         ...state,
         error: true,
       };
-    case 'FORM_SUBMITTED':
+    case TYPES.FORM_SUBMITTED:
       action.event.preventDefault();
       return {
         ...state,
         showListOfUsers: true,
       };
-    case 'SET_ACTIVE_USER':
+    case TYPES.SET_ACTIVE_USER:
       return {
         ...state,
         activeUser: action.user,
       };
-    case 'SET_ACTIVE_REPOS_DETAILS':
+    case TYPES.SET_ACTIVE_REPOS_DETAILS:
       return {
         ...state,
         activeReposDetails: action.data,
