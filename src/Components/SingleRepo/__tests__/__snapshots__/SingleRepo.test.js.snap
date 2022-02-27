@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SingleRepo component should render the SingleRepo correctly 1`] = `
+<a
+  className="Wrap"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    className="SingleRepo"
+  >
+    <div
+      className="TitleAndDescription"
+    >
+      <div
+        className="RepoTitle"
+      >
+        <div />
+        <div>
+          <i
+            className="fa fa-star"
+          />
+        </div>
+      </div>
+      <div
+        className="RepoDescription"
+      />
+    </div>
+  </div>
+</a>
+`;

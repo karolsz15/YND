@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classes from '../Container/Container.module.css';
+import classes from '../../Container/Container.module.css';
 
 const SingleRepo = ({
   singleRepoLink,
@@ -30,9 +30,9 @@ const SingleRepo = ({
 );
 
 SingleRepo.propTypes = {
-  singleRepoLink: PropTypes.string.isRequired,
-  singleRepoTitle: PropTypes.string.isRequired,
-  singleRepoStars: PropTypes.number.isRequired,
+  singleRepoLink: PropTypes.string,
+  singleRepoTitle: PropTypes.string,
+  singleRepoStars: PropTypes.number,
   singleRepoDescription: PropTypes.string,
 };
 

@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ReposLink component should render the ReposLink correctly 1`] = `
+<a
+  className="Wrap"
+  href="https://github.com/undefined"
+  rel="noopener noreferrer"
+  target="_blank"
+>
+  <div
+    className="SingleRepo"
+  >
+    <div
+      className="TitleAndDescription"
+    >
+      <div
+        className="RepoTitle"
+      >
+        All 
+        's repositories...
+        <i
+          aria-hidden="true"
+          className="fa fa-arrow-right"
+        />
+      </div>
+      <div
+        className="RepoDescription"
+      >
+        Click here to see all 
+        's repositories!
+      </div>
+    </div>
+  </div>
+</a>
+`;

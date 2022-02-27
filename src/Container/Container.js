@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-
 import classes from './Container.module.css';
-import SingleUser from '../Components/SingleUser';
+import SingleUser from '../Components/SingleUser/SingleUser';
 
 const Container = React.memo(() => {
   // map state to consts

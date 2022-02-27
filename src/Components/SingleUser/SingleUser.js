@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import _ from 'lodash';
 import PropTypes from 'prop-types';
-
-import SingleRepo from './SingleRepo';
-import ReposLink from './ReposLink';
-import classes from '../Container/Container.module.css';
+import SingleRepo from '../SingleRepo/SingleRepo';
+import ReposLink from '../ReposLink/ReposLink';
+import classes from '../../Container/Container.module.css';
 
 const SingleUser = (props) => {
   const { username, key } = props;
