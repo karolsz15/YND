@@ -3,10 +3,10 @@ import * as TYPES from './types';
 const initialState = {
   searchQuery: '',
   showListOfUsers: false,
-  usernamesArray: null, // array response from Container component
+  usernamesArray: [], // array response from Container component
   error: false,
-  activeUser: null,
-  activeReposDetails: null, // JSON object response from SingleUser component - titles, descriptions and stars
+  activeUser: '',
+  activeReposDetails: {}, // JSON object response from SingleUser component - titles, descriptions and stars
   reposListOpen: false,
 };
 
